@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/toDoListFragment">
+
+    <fragment
+        android:id="@+id/toDoListFragment"
+        android:name="com.koloytanov.tasksApp.fragment.ToDoListFragment"
+        android:label="TaskApp">
+        <action
+            android:id="@+id/action_toDoListFragment_to_nested_graph"
+            app:destination="@id/nested_graph"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <argument
+            android:name="from_recycle_view"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+    <navigation android:id="@+id/nested_graph"
+        app:startDestination="@id/detailedTaskFragment">
+        <fragment
+            android:id="@+id/detailedTaskFragment"
+            android:name="com.koloytanov.tasksApp.fragment.DetailedTaskFragment"
+            android:label="Детальное описание"
+            tools:layout="@layout/fragment_detailed_task">
+            <action
+                android:id="@+id/action_detailedTaskFragment_to_addTaskFragment"
+                app:destination="@id/addTaskFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" />
+        </fragment>
+        <fragment
+            android:id="@+id/addTaskFragment"
+            android:name="com.koloytanov.tasksApp.fragment.AddTaskFragment"
+            android:label="Добавить задачу" >
+            <action
+                android:id="@+id/action_addTaskFragment_to_detailedTaskFragment"
+                app:destination="@id/detailedTaskFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" />
+        </fragment>
+        <action
+            android:id="@+id/action_global_addTaskFragment"
+            app:destination="@id/toDoListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </navigation>
+</navigation>
