@@ -54,12 +54,11 @@ class ToDoListFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.datePicker.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val date = LocalDate.of(year, month + 1, dayOfMonth)
-            val daystart = date.atStartOfDay()
-            val dayend = LocalDateTime.of(date, LocalTime.MAX)
+
             binding.scrollView.isScrollbarFadingEnabled = true
             binding.viewModel = viewModel
-            viewModel.Notes.observe(viewLifecycleOwner) { notes ->
-                adapter.submitList(notes, daystart, dayend)
+            viewModel.Notes.observe(viewLifecycleOwner) { tasks ->
+                adapter.submitList(tasks,date)
             }
 
         }

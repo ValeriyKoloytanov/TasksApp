@@ -15,6 +15,7 @@ import com.koloytanov.tasksApp.databinding.HeaderTodoTypeBinding
 import com.koloytanov.tasksApp.databinding.ItemActiveTodoBinding
 import com.koloytanov.tasksApp.model.Task
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 
@@ -45,28 +46,41 @@ class ToDoRecyclerAdapter :
 
     }
 
-    fun addTask(task: Task, daystart: LocalDateTime, dayend: LocalDateTime) {
+    fun addTask(task: Task, date: LocalDate) {
         val start = LocalDateTime.ofInstant(task.date_start, ZoneId.systemDefault())
         val end = LocalDateTime.ofInstant(task.date_finish, ZoneId.systemDefault())
 
-        val durarion = Duration.between(start, end)
-        var hour = start.hour
-        if (durarion.toDays() > 0) {
-            while (hour != 22) {
-                TaskMap[Sections.values()[hour].period]?.add((task))
-                hour++
-            }
+        val durarion = Duration.between(date.atStartOfDay(), end)
+        if (!(date.isBefore(start.toLocalDate()) || date.isAfter(end.toLocalDate()))) {
+                when  {
+                    durarion.toDays()==Duration.between(task.date_start,task.date_finish).toDays() -> {
+                        var hour = start.hour
+                        while (hour != 22) {
+                            TaskMap[Sections.values()[hour].period]?.add((task))
+                            hour++
+                        }
+                    }
+                    durarion.toDays() >= 1 -> {
+                        var hour = 0
+                        while (hour != 22) {
+                            TaskMap[Sections.values()[hour].period]?.add((task))
+                            hour++
+                        }
+                    }
+                    durarion.toDays() == 0L -> {
 
-        } else {
-            for (i in durarion.toHours() downTo 1) {
-                if (hour == 0)
-                    TaskMap[Sections.ZERO.period]?.add((task))
-                else {
-                    TaskMap[Sections.values()[hour].period]?.add((task))
-                    hour++
+                        for (i in  0L..end.hour) {
+
+                            if (i == 0L)
+                                TaskMap[Sections.ZERO.period]?.add((task))
+                            else {
+                                TaskMap[Sections.values()[i.toInt()].period]?.add((task))
+                            }
+                        }
+                    }
                 }
             }
-        }
+
     }
 
     fun clearTaskMap() {
@@ -74,9 +88,9 @@ class ToDoRecyclerAdapter :
             TaskMap[section.period]?.clear()
     }
 
-    fun submitList(newtasks: List<Task>, daystart: LocalDateTime, dayend: LocalDateTime) {
+    fun submitList(newtasks: List<Task>, date: LocalDate) {
         clearTaskMap()
-        newtasks.forEach { addTask(it, daystart, dayend) }
+        newtasks.forEach { addTask(it, date) }
         notifyDataSetChanged()
     }
 
