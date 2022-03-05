@@ -11,8 +11,8 @@ import androidx.navigation.ui.NavigationUI
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var navHostFragment: NavHostFragment
-    var from_recycle_view = false
+    private lateinit var navHostFragment: NavHostFragment
+    private var fromRecycleView = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,24 +25,24 @@ class MainActivity : AppCompatActivity() {
                     R.id.toDoListFragment -> {
                         if (arguments != null) {
                             if (arguments.getBoolean("from_recycle_view")) {
-                                from_recycle_view = true
+                                fromRecycleView = true
                                 val graph = controller.graph.findNode(R.id.nested_graph) as NavGraph
                                 graph.setStartDestination(R.id.detailedTaskFragment)
                             } else {
                                 val graph = controller.graph.findNode(R.id.nested_graph) as NavGraph
                                 graph.setStartDestination(R.id.addTaskFragment)
-                                from_recycle_view = false
+                                fromRecycleView = false
                             }
                         }
                     }
                     R.id.addTaskFragment -> {
-                        if (from_recycle_view)
+                        if (fromRecycleView)
                             destination.label = "Обновить задачу"
                         else {
                             destination.label = "Добавить задачу"
 
                         }
-                        from_recycle_view = false
+                        fromRecycleView = false
 
                     }
 

@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="32dp"
-        android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/labelName"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,17 +23,15 @@
         android:layout_height="53dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="28dp"
-        android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/labelDesc"
         app:layout_constraintTop_toBottomOf="@+id/NametextView" />
 
     <TextView
         android:id="@+id/StartDatetextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="167dp"
+        android:layout_height="29dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="92dp"
-        android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/labelstarting"
         app:layout_constraintTop_toBottomOf="@+id/labelName" />
 
@@ -44,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="35dp"
-        android:text="Название задачи "
+        android:text="@string/task_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="24dp"
-        android:text="Описание"
+        android:text="@string/description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelName" />
 
@@ -64,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="44dp"
-        android:text="Дата начала"
+        android:text="@string/startdate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelDesc" />
 
@@ -74,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="20dp"
-        android:text="Дата завершения"
+        android:text="@string/end_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/StartDatetextView" />
 
@@ -84,7 +81,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="22dp"
-        android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/labelending"
         app:layout_constraintTop_toBottomOf="@+id/StartDatetextView" />
 

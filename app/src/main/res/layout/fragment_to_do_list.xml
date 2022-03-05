@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.koloytanov.tasksApp.fragment.ToDoViewModel" />
+            type="com.koloytanov.tasksApp.model.ToDoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

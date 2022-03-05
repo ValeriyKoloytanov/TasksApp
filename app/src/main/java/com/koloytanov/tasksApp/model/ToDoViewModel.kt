@@ -1,7 +1,6 @@
-package com.koloytanov.tasksApp.fragment
+package com.koloytanov.tasksApp.model
 
 import androidx.lifecycle.*
-import com.koloytanov.tasksApp.model.Task
 import com.koloytanov.tasksApp.reminderRoom.Taskrepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -9,7 +8,7 @@ import kotlinx.coroutines.runBlocking
 
 class ToDoViewModel(private val taskRepo: Taskrepository) : ViewModel() {
     var id = 0
-    val Notes: LiveData<List<Task>> = taskRepo.getNotes().asLiveData()
+    val notes: LiveData<List<Task>> = taskRepo.getNotes().asLiveData()
     var task: Task? = null
     fun insert(task: Task) = viewModelScope.launch {
         taskRepo.insert(task)
@@ -23,7 +22,7 @@ class ToDoViewModel(private val taskRepo: Taskrepository) : ViewModel() {
         taskRepo.delete(task)
     }
 
-    fun specific_task(id: Int): Task = runBlocking {
+    fun specificTask(id: Int): Task = runBlocking {
         taskRepo.getclickedtask(id)
     }
 }

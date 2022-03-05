@@ -1,3 +1,5 @@
+@file:Suppress("unused", "unused")
+
 package com.koloytanov.tasksApp.reminderRoom
 
 import androidx.room.TypeConverter

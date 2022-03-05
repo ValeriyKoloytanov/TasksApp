@@ -10,6 +10,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.koloytanov.tasksApp.R
 import com.koloytanov.tasksApp.TaskApp
 import com.koloytanov.tasksApp.databinding.FragmentDetailedTaskBinding
+import com.koloytanov.tasksApp.model.TaskModelFactory
+import com.koloytanov.tasksApp.model.ToDoViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
@@ -75,7 +77,7 @@ class DetailedTaskFragment : Fragment() {
 
         val id = arguments?.getInt("id")!!
         lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.task = viewModel.specific_task(id)
+            viewModel.task = viewModel.specificTask(id)
             this@DetailedTaskFragment.activity?.runOnUiThread {
                 binding.NametextView.text = viewModel.task!!.name
                 binding.DescriptionTextView.text = viewModel.task!!.description

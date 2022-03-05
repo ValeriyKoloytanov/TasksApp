@@ -37,7 +37,7 @@ class ToDoRecyclerAdapter :
             TaskMap[section.period] = ArrayList()
     }
 
-    fun getPeriodTasks(Section: Sections): ArrayList<Task> {
+    private fun getPeriodTasks(Section: Sections): ArrayList<Task> {
         return TaskMap[Section.period]!!
     }
 
@@ -46,7 +46,7 @@ class ToDoRecyclerAdapter :
 
     }
 
-    fun addTask(task: Task, date: LocalDate) {
+    private fun addTask(task: Task, date: LocalDate) {
         val start = LocalDateTime.ofInstant(task.date_start, ZoneId.systemDefault())
         val end = LocalDateTime.ofInstant(task.date_finish, ZoneId.systemDefault())
 
@@ -83,7 +83,7 @@ class ToDoRecyclerAdapter :
 
     }
 
-    fun clearTaskMap() {
+    private fun clearTaskMap() {
         for (section in Sections.values())
             TaskMap[section.period]?.clear()
     }
@@ -147,7 +147,8 @@ class ToDoRecyclerAdapter :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         private lateinit var taskData: Bundle
         fun bind(task: Task) {
-            binding.time = "5"
+            binding.time = LocalDateTime.ofInstant(task.date_start, ZoneId.systemDefault()).hour.toString()+"-"+
+            LocalDateTime.ofInstant(task.date_finish, ZoneId.systemDefault()).hour.toString()
             binding.title = task.name
             taskData = bundleOf("id" to task.id)
         }

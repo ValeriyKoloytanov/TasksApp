@@ -9,9 +9,9 @@ import com.koloytanov.tasksApp.R
 import com.koloytanov.tasksApp.TaskApp
 import com.koloytanov.tasksApp.adapter.ToDoRecyclerAdapter
 import com.koloytanov.tasksApp.databinding.FragmentToDoListBinding
+import com.koloytanov.tasksApp.model.TaskModelFactory
+import com.koloytanov.tasksApp.model.ToDoViewModel
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 
 
 class ToDoListFragment : Fragment() {
@@ -57,7 +57,7 @@ class ToDoListFragment : Fragment() {
 
             binding.scrollView.isScrollbarFadingEnabled = true
             binding.viewModel = viewModel
-            viewModel.Notes.observe(viewLifecycleOwner) { tasks ->
+            viewModel.notes.observe(viewLifecycleOwner) { tasks ->
                 adapter.submitList(tasks,date)
             }
 

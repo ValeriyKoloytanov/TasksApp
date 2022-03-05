@@ -14,6 +14,8 @@ import com.koloytanov.tasksApp.R
 import com.koloytanov.tasksApp.TaskApp
 import com.koloytanov.tasksApp.databinding.FragmentAddTaskfragmentBinding
 import com.koloytanov.tasksApp.model.Task
+import com.koloytanov.tasksApp.model.TaskModelFactory
+import com.koloytanov.tasksApp.model.ToDoViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
@@ -25,7 +27,7 @@ import java.time.temporal.ChronoUnit
 class AddTaskFragment : Fragment() {
     private var _binding: FragmentAddTaskfragmentBinding? = null
     private val binding get() = _binding!!
-    var sdf2: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+    private var sdf2: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
     private val viewModel: ToDoViewModel by navGraphViewModels(R.id.nested_graph) {
         TaskModelFactory((activity?.application as TaskApp).repository)
