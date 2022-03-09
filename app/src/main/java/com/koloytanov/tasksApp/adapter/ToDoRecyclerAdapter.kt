@@ -52,34 +52,46 @@ class ToDoRecyclerAdapter :
 
         val durarion = Duration.between(date.atStartOfDay(), end)
         if (!(date.isBefore(start.toLocalDate()) || date.isAfter(end.toLocalDate()))) {
-                when  {
-                    durarion.toDays()==Duration.between(task.date_start,task.date_finish).toDays() -> {
-                        var hour = start.hour
-                        while (hour != 22) {
-                            TaskMap[Sections.values()[hour].period]?.add((task))
-                            hour++
+            when {
+                durarion.toDays() == Duration.between(task.date_finish, task.date_finish).toDays() && (Duration.between(task.date_start, task.date_finish).toDays()>=1) -> {
+                    for (i in 0..end.hour) {
+
+                        if (i == 0)
+                            TaskMap[Sections.ZERO.period]?.add((task))
+                        else {
+                            TaskMap[Sections.values()[i].period]?.add((task))
                         }
                     }
-                    durarion.toDays() >= 1 -> {
-                        var hour = 0
-                        while (hour != 22) {
-                            TaskMap[Sections.values()[hour].period]?.add((task))
-                            hour++
-                        }
+                }
+                (durarion.toDays() == Duration.between(task.date_start, task.date_finish)
+                    .toDays()) && (Duration.between(task.date_start, task.date_finish).toDays()>=1) -> {
+                    var hour = start.hour
+                    while (hour != 22) {
+                        TaskMap[Sections.values()[hour].period]?.add((task))
+                        hour++
+
                     }
-                    durarion.toDays() == 0L -> {
+                }
+                durarion.toDays() >= 1 -> {
+                    var hour = 0
+                    while (hour != 22) {
+                        TaskMap[Sections.values()[hour].period]?.add((task))
+                        hour++
+                    }
+                }
+                (durarion.toHours() <= 24L) && (Duration.between(task.date_start, task.date_finish).toDays()<1)-> {
 
-                        for (i in  0L..end.hour) {
+                    for (i in start.hour..end.hour) {
 
-                            if (i == 0L)
-                                TaskMap[Sections.ZERO.period]?.add((task))
-                            else {
-                                TaskMap[Sections.values()[i.toInt()].period]?.add((task))
-                            }
+                        if (i == 0)
+                            TaskMap[Sections.ZERO.period]?.add((task))
+                        else {
+                            TaskMap[Sections.values()[i].period]?.add((task))
                         }
                     }
                 }
             }
+        }
 
     }
 
@@ -147,8 +159,14 @@ class ToDoRecyclerAdapter :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         private lateinit var taskData: Bundle
         fun bind(task: Task) {
-            binding.time = LocalDateTime.ofInstant(task.date_start, ZoneId.systemDefault()).hour.toString()+"-"+
-            LocalDateTime.ofInstant(task.date_finish, ZoneId.systemDefault()).hour.toString()
+            binding.time = LocalDateTime.ofInstant(
+                task.date_start,
+                ZoneId.systemDefault()
+            ).hour.toString() + "-" +
+                    LocalDateTime.ofInstant(
+                        task.date_finish,
+                        ZoneId.systemDefault()
+                    ).hour.toString()
             binding.title = task.name
             taskData = bundleOf("id" to task.id)
         }
